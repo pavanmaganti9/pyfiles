@@ -9,6 +9,6 @@ df = pd.read_excel('MentorMindWork.xlsx', sheetname='Sheet1')
  
 print("Column headings:")
 print(df.columns)
-#print df
+print df
 
 #print "Pavan"
