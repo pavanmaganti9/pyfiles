@@ -2,7 +2,7 @@
 print "Content-type: text/html"
 print
 import MySQLdb
-
+DEBUG = True
 db = MySQLdb.connect(host="localhost",    # your host, usually localhost
                      user="root",         # your username
                      passwd="",  # your password
@@ -17,6 +17,6 @@ cur.execute("SELECT * FROM tbl_banner")
 
 # print all the first cell of all the rows
 for row in cur.fetchall():
-    print row[0]
-
+    print "Id: ",row[0], ", BannerName : ",row[1]," <br> "
+	
 db.close()
