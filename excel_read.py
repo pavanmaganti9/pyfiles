@@ -1,7 +1,7 @@
 import xlrd 
   
 # Give the location of the file 
-loc = ("DS_ae.xlsx") 
+loc = ("asd.xlsx") 
   
 # To open Workbook 
 wb = xlrd.open_workbook(loc) 
