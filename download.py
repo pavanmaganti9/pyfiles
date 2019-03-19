@@ -1,0 +1,2 @@
+import urllib.request
+urllib.request.urlretrieve ("http://192.168.1.121/doc_download.php?fid=5ad06917a3c2dc8412000159&filename=Guidance+Document+For+Clinical+Trial+Sponsors+-+Clinical+Trial+Applications.pdf&type=application/pdf", "pdf.pdf")

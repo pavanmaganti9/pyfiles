@@ -1,14 +1,14 @@
-#!c:/Python27/python
-print "Content-type: text/html"
-print
 import pandas as pd
-from pandas import ExcelWriter
-from pandas import ExcelFile
- 
-df = pd.read_excel('MentorMindWork.xlsx', sheetname='Sheet1')
- 
-print("Column headings:")
-print(df.columns)
-print df
+# Load the raw data using the ExcelFile object
+data = pd.ExcelFile('python/DS_ae.xlsx')
 
-#print "Pavan"
+# First, see the sheetnames available
+#print(data.sheet_names)
+
+# Take a peek at the first 10 rows of the first tab
+#print(data.parse(sheet_name='ae', skiprows=0).head(10))
+
+#print(pd.read_excel('python/DS_ae.xlsx', index_col=0))
+
+
+print(pd.read_excel('python/DS_ae.xlsx', index_col=None, header=None))
