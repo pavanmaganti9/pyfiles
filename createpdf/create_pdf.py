@@ -20,26 +20,26 @@ def import_data(data_file):
 		platform = row[2]
 		company = row[3]
 		pdf_file_name = first_name + '_' + company + '.pdf'
-		generate_pdf(first_name, last_name, platform, company)
+		generate_pdf(first_name, last_name, platform, company, pdf_file_name)
 		
-def generate_pdf(first_name, last_name, platform, company):
+def generate_pdf(first_name, last_name, platform, company, pdf_file_name):
 	person_name = last_name + ' ' + first_name
 	c = canvas.Canvas(pdf_file_name, pagesize = A4)
 	
 	#header text
-	c.setFont('Arial', 48, leading=None)
+	c.setFont('arial', 48, leading=None)
 	c.drawCentredString(415, 500, "Certify of Work")
-	c.setFont('Times New Roman',24, leading=None)
+	c.setFont('arial',24, leading=None)
 	c.drawCentredString(415, 450, "This is to certify that")
 	#person name
-	c.setFont('Arial Bold', 34, leading=None)
+	c.setFont('arial', 34, leading=None)
 	c.drawCentredString(415, 395, person_name)
 	
 	#some content
-	c.setFont('Arial', 20, leading=None)
+	c.setFont('arial', 20, leading=None)
 	c.drawCentredString(415,350,"Working in a company")
 	#company name
-	c.setFont('Arial', 25, leading=None)
+	c.setFont('arial', 25, leading=None)
 	c.drawCentredString(415,350, company)
 	#image
 	logo = 'flag.jpg'
