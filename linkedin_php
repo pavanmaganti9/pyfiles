@@ -1,0 +1,89 @@
+init.php
+
+<?php
+session_start();
+
+$client_id = '819tusrtuhrwrf';
+$client_secret = 'DROj8SneDF1bTyNk';
+$redirect_uri = 'http://localhost/linkedin/callback.php';
+$csrf_token = random_int(1111111, 9999999);
+$scope = "r_basicprofile%20r_emailaddress";
+
+function curl($url, $parameters){
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $parameters);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	$headers = [];
+	$headers[] = "Content-Type: application/x-www-form-urlencoded";
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	$result = curl_exec($ch);
+	return $result;
+
+}
+
+function getCallback(){
+	$client_id = '819tusrtuhrwrf';
+	$client_secret = 'DROj8SneDF1bTyNk';
+	$redirect_uri = 'http://localhost/linkedin/callback.php';
+	$csrf_token = random_int(1111111, 9999999);
+	$scope = "r_basicprofile%20r_emailaddress";
+
+	if(isset($_REQUEST['code'])){
+
+		$code = $_REQUEST['code'];
+		$url = "https://www.linkedin.com/oauth/v2/accessToken";
+		$params = [
+			'client_id' => $client_id,
+			'client_secret' => $client_secret,
+			'redirect_uri' => $redirect_uri,
+			'code' => $code,
+			'grant_type' => 'authorization_code',
+		];
+		$accessToken = curl($url, http_build_query($params));
+		$accessToken = json_decode($accessToken);
+		$token = $accessToken->access_token;
+		$url = "https://api.linkedin.com/v1/people/~:(id,email-address,firstName,lastName,pictureUrls::(original),headline,publicProfileUrl,location,positions,industry)?format=json&oauth2_access_token=".$token;
+		$user = file_get_contents($url,false);
+		var_dump(json_decode($user));
+		die();
+	}	
+}
+?>
+
+
+index.php
+
+<?php
+require_once 'init.php';
+?>
+<a href="<?php echo "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id={$client_id}&redirect_uri={$redirect_uri}&state={$csrf_token}&scope={$scope}";?>">Login with Linkedin</a>
+
+
+callback.php
+
+<?php
+
+require_once 'init.php';
+$user = getCallback();
+$_SESSION['user'] = $user;
+header('Location : landing.php');
+?>
+
+landing.php
+
+<?php
+ require 'init.php';
+
+ if(!isset($_SESSION['$user'])){
+ 	header("location: index.php");
+ }
+$user = $_SESSION['user'];
+?>
+
+Name : <?php echo $user->firstName; ?>
+
+<?php // $user->emailAddress $user->lastName $user->industry?>
