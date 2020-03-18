@@ -18,3 +18,5 @@ if ($webhook-&gt;isValid()) {
     // Get the transaction ID
     $transactionId = $webhook-&gt;payload-&gt;id;
 }
+
+https://github.com/stymiee/authnetjson/blob/master/examples/reporting/getTransactionDetailsRequest.php
